@@ -2,50 +2,29 @@
   <head>
     <style type='text/css'>
       a { color:#a0a0e0 }
-      div.title    { color:#C0C0C0; font-size:1.2em; font-weight:bold; margin-top:1em; margin-bottom:0.5em; text-align:center }
-      div.subtitle { color:#C0C0C0; font-size:0.8em; margin-bottom:1em; text-align:center }
+      div.title    { color:#C0F0C0; font-size:1.2em; font-weight:bold; margin-top:1em; margin-bottom:0.5em; text-align:center }
+      div.subtitle { color:#C0F0C0; font-size:0.8em; margin-bottom:1em; text-align:center }
       div.freetext { color:#F0F0F0 }
-      div.list     { color:#F0F0F0 }
+      div.list     { color:#C0C0F0 }
     </style>
   </head>
   <body>
+$ 2.0
+  % Version 2.0
+  _ 2011-06-19
+  ! This new version is completely overdone and cooler than ever!
+    # <a href="http://www.friendface.co.uk/">Friendface</a> integration
+    # Now with Change Log
+    # Billions of bug fixes!
 $ 1.0
   % Version 1.0
-  _ 2011-06-19
-  ! Welcome to Change Log Test App! Here is the list of features:
-    # Enter your change log in a very simple way
-    # Customize appearance of change logs with CSS
-    # Don't care about version number handling
-  ! How to enter the change log:
-    * Use text file res/raw/changelog.txt
-    * First input your HTML until the body-Tag. Here you can enter CSS for div.title, div.subtitle, div.freetext and div.list (see below) and any other elements you should be using, e.g. links.
-    * To begin a section for any version start the line with a dollar sign followed by the version number.
-    * %25 begins a line of a version section title.
-    * _ begins a line of a version section subtitle.
-    * ! begins a line of free text.
-    * # begins a line within a numbered list.
-    * * begins a line within a bullet list.
-    * Lines beginning without any of these signs will be output as they are.
-    * You can use HTML anywhere you want.
-    * After the last version section insert a line containing "$ END_OF_CHANGE_LOG".
-    * After that you should enter HTML again, at least the end-body-tag and the end-html-tag.
-  ! How handle versions:
-    * Just put a String named "version" in values/string.xml with the version number of you app and keep it updated.
-    * Be sure to have a section with this version number in changelog.txt (e.g. "$ 1.0").
-    * That's all!
-  ! Put these string into string.xml also:
-    * "full_change_log_title" - Dialog title when displaying a full change log
-    * "whats_new_title" - Dialog title when displaying only the new features of your app
-    * "change_log_ok_button" - text on the OK-button of the change log dialog
-  ! Using Change Log in code:
-    * First instantiate ChangeLog from within an Activity: ChangeLog cl = new ChangeLog(this);
-    * cl.firstRun() tells you whether your app is called the first time since first installation or installation of a new version.
-    * cl.getLogDialog() returns a Dialog displaying the new features of your app.
-    * cl.getFullLogDialog() returns a Dialog with the complete change log.
+  _ 2011-06-01
+  ! Finally <b>Rocking Chair Sound Generator</b> is being released!
+    * please register
+    * please donate
 $ 0.1
-  % Version 0.1 
-  _ alpha
-  ! first test release
+  % Version 0.1
+  _ (beta, won't work)
 $ END_OF_CHANGE_LOG
   </body>
 </html>

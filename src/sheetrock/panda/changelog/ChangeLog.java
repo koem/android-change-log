@@ -63,13 +63,13 @@ public class ChangeLog {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this.context);
 		builder.setTitle(context.getResources().getString(
 				full 
-			        ? R.string.full_change_log_title
-			        : R.string.whats_new_title))
+			        ? R.string.changelog_full_title
+			        : R.string.changelog_title))
 				.setView(wv)
 				.setCancelable(false)
 				.setPositiveButton(
 						context.getResources().getString(
-								R.string.change_log_ok_button),
+								R.string.changelog_ok_button),
 						new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int id) {
 						dialog.cancel();
