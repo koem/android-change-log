@@ -1,3 +1,6 @@
+/**
+ * ChangeLog.java is distributed unter the Apache License 2.0
+ */
 package sheetrock.panda.changelog;
 
 import java.io.BufferedReader;
