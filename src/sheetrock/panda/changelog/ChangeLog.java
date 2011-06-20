@@ -1,5 +1,8 @@
 /**
  * ChangeLog.java is distributed unter the Apache License 2.0
+ *
+ * @author: Karsten Priegnitz
+ * URL: http://code.google.com/p/android-change-log/
  */
 package sheetrock.panda.changelog;
 
