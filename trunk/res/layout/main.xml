@@ -5,6 +5,6 @@
     android:layout_height="fill_parent"
     >
 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/textview" android:text="Android Change Log Test"></TextView>
-<Button android:text="full change log" android:id="@+id/full_changelog" android:layout_width="wrap_content" android:layout_height="wrap_content"></Button>
-<Button android:text="what's new" android:id="@+id/changelog" android:layout_width="wrap_content" android:layout_height="wrap_content"></Button>
+<Button android:text="full change log" android:id="@+id/full_changelog" android:layout_height="wrap_content" android:layout_width="fill_parent"></Button>
+<Button android:text="what's new" android:id="@+id/changelog" android:layout_height="wrap_content" android:layout_width="fill_parent"></Button>
 </LinearLayout>

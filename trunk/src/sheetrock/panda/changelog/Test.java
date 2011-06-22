@@ -2,6 +2,8 @@ package sheetrock.panda.changelog;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -20,6 +22,8 @@ public class Test extends Activity {
         String s = tv.getText() + "\nsaved version: " + cl.getSavedVersion()
         		+ "\nversion in manifest: " + cl.getManifestVersion()
                 + "\nfirst run: " + cl.firstRun();
+        
+        tv.setText(s);
 
         ((Button) this.findViewById(R.id.changelog)).setOnClickListener(
                 new OnClickListener() {
