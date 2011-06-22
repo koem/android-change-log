@@ -132,12 +132,13 @@ public class ChangeLog {
         UNORDERED,
     };
     private Listmode listMode = Listmode.NONE;
-    private StringBuffer sb = new StringBuffer();
+    private StringBuffer sb = null;
     private static final String EOVS = "END_OF_CHANGE_LOG";
 
     private String getLog(boolean full) {
         // read changelog.txt file
-        try {
+    	sb = new StringBuffer();
+    	try {
             InputStream ins = context.getResources().openRawResource(
                     R.raw.changelog);
             BufferedReader br = new BufferedReader(new InputStreamReader(ins));
