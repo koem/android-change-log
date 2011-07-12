@@ -19,6 +19,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.webkit.WebView;
@@ -26,7 +27,7 @@ import android.webkit.WebView;
 public class ChangeLog {
     
     private final Context context;
-    private String oldVersion, thisVersion;
+    private String lastVersion, thisVersion;
     private SharedPreferences sp;
 
     // this is the key for storing the version name in SharedPreferences
@@ -44,22 +45,29 @@ public class ChangeLog {
         this.sp = PreferenceManager.getDefaultSharedPreferences(context);
 
         // get version numbers
-        this.oldVersion = sp.getString(VERSION_KEY, "");
-        Log.d(TAG, "oldVersion: " + oldVersion);
-        this.thisVersion = context.getResources().getString(R.string.version);
-        Log.d(TAG, "thisVersion: " + thisVersion);
+        this.lastVersion = sp.getString(VERSION_KEY, "");
+        Log.d(TAG, "lastVersion: " + lastVersion);
+        try {
+			this.thisVersion = context.getPackageManager().getPackageInfo(
+					context.getPackageName(), 0).versionName;
+		} catch (NameNotFoundException e) {
+			this.thisVersion = "?";
+			Log.e(TAG, "could not get version name from manifest!");
+			e.printStackTrace();
+		}
+        Log.d(TAG, "appVersion: " + this.thisVersion);
         
         // save new version number to preferences
         SharedPreferences.Editor editor = sp.edit();
-        editor.putString(VERSION_KEY, thisVersion);
+        editor.putString(VERSION_KEY, this.thisVersion);
         editor.commit();
     }
     
-    public String getSavedVersion() {
-    	return  this.oldVersion;
+    public String getLastVersion() {
+    	return  this.lastVersion;
     }
     
-    public String getManifestVersion() {
+    public String getThisVersion() {
     	return  this.thisVersion;
     }
 
@@ -68,7 +76,7 @@ public class ChangeLog {
      *          time
      */
     public boolean firstRun() {
-        return  ! oldVersion.equals(thisVersion);
+        return  ! lastVersion.equals(thisVersion);
     }
 
     /**
@@ -153,7 +161,7 @@ public class ChangeLog {
                     String version = line.substring(1).trim();
                     // stop output?
                     if (! full) {
-                        if (this.oldVersion.equals(version))
+                        if (this.lastVersion.equals(version))
                             advanceToEOVS = true;
                         else if (version.equals(EOVS))
                             advanceToEOVS = false;
