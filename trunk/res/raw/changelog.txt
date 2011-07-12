@@ -2,13 +2,27 @@
   <head>
     <style type='text/css'>
       a            { color:#a0a0e0 }
-      div.title    { color:#C0F0C0; font-size:1.2em; font-weight:bold; margin-top:1em; margin-bottom:0.5em; text-align:center }
-      div.subtitle { color:#C0F0C0; font-size:0.8em; margin-bottom:1em; text-align:center }
+      div.title    { 
+          color:#C0F0C0; 
+          font-size:1.2em; 
+          font-weight:bold; 
+          margin-top:1em; 
+          margin-bottom:0.5em; 
+          text-align:center }
+      div.subtitle { 
+          color:#C0F0C0; 
+          font-size:0.8em; 
+          margin-bottom:1em; 
+          text-align:center }
       div.freetext { color:#F0F0F0 }
       div.list     { color:#C0C0F0 }
     </style>
   </head>
   <body>
+$ 2.0.7
+  % Version 2.0.7
+  _ 2011-07-12
+    * gets version name from manifest now
 $ 2.0
   % Version 2.0
   _ 2011-06-19

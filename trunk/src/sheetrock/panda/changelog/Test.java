@@ -19,9 +19,9 @@ public class Test extends Activity {
         TextView tv = (TextView) this.findViewById(R.id.textview);
         cl = new ChangeLog(this);
         
-        String s = tv.getText() + "\nsaved version: " + cl.getSavedVersion()
-        		+ "\nversion in manifest: " + cl.getManifestVersion()
-                + "\nfirst run: " + cl.firstRun();
+        String s = tv.getText() + "\nlast version: '" + cl.getLastVersion()
+        		+ "'\nversion in manifest: '" + cl.getThisVersion()
+                + "'\nfirst run: " + cl.firstRun();
         
         tv.setText(s);
 
