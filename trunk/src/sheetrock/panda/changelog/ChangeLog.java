@@ -6,7 +6,7 @@
  * copyright notice and this permission notice appear in all copies.
  *
  * @author: Karsten Priegnitz
- * see: http://code.google.com/p/android-change-log/
+ * @see: http://code.google.com/p/android-change-log/
  */
 package sheetrock.panda.changelog;
 
@@ -28,7 +28,6 @@ public class ChangeLog {
     
     private final Context context;
     private String lastVersion, thisVersion;
-    private SharedPreferences sp;
 
     // this is the key for storing the version name in SharedPreferences
     private static final String VERSION_KEY = "PREFS_VERSION_KEY";
@@ -42,7 +41,8 @@ public class ChangeLog {
     public ChangeLog(Context context) {
         this.context = context;
 
-        this.sp = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences sp = PreferenceManager
+        		.getDefaultSharedPreferences(context);
 
         // get version numbers
         this.lastVersion = sp.getString(VERSION_KEY, "");
@@ -63,20 +63,49 @@ public class ChangeLog {
         editor.commit();
     }
     
+    /**
+     * @return  The version name of the last installation of this app (as
+     *          described in the former manifest). This will be the same as
+     *          returned by <code>getThisVersion()</code> from the second time
+     *          this version of the app is launched (more precisely: the
+     *          second time ChangeLog is instantiated).
+     * @see AndroidManifest.xml#android:versionName
+     */
     public String getLastVersion() {
     	return  this.lastVersion;
     }
+
+    /**
+     * manually set the last version name - for testing purposes only
+     * @param lastVersion
+     */
+    void setLastVersion(String lastVersion) {
+    	this.lastVersion = lastVersion;
+    }
     
+    /**
+     * @return  The version name of this app as described in the manifest.
+     * @see AndroidManifest.xml#android:versionName
+     */
     public String getThisVersion() {
     	return  this.thisVersion;
     }
 
     /**
-     * @return  true if this version of your app is started the first
-     *          time
+     * @return  <code>true</code> if this version of your app is started the
+     *          first time
      */
     public boolean firstRun() {
-        return  ! lastVersion.equals(thisVersion);
+        return  ! this.lastVersion.equals(this.thisVersion);
+    }
+
+    /**
+     * @return  <code>true</code> if your app is started the first time ever.
+     *          Also <code>true</code> if your app was deinstalled and 
+     *          installed again.
+     */
+    public boolean firstRunEver() {
+        return  "".equals(this.lastVersion);
     }
 
     /**
@@ -141,7 +170,7 @@ public class ChangeLog {
     };
     private Listmode listMode = Listmode.NONE;
     private StringBuffer sb = null;
-    private static final String EOVS = "END_OF_CHANGE_LOG";
+    private static final String EOCL = "END_OF_CHANGE_LOG";
 
     private String getLog(boolean full) {
         // read changelog.txt file
@@ -163,7 +192,7 @@ public class ChangeLog {
                     if (! full) {
                         if (this.lastVersion.equals(version))
                             advanceToEOVS = true;
-                        else if (version.equals(EOVS))
+                        else if (version.equals(EOCL))
                             advanceToEOVS = false;
                      }
                 } else if (! advanceToEOVS) {
