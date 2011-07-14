@@ -19,9 +19,10 @@
     </style>
   </head>
   <body>
-$ 2.0.7
-  % Version 2.0.7
+$ 2.0.8
+  % Version 2.0.8 (Kirk)
   _ 2011-07-12
+    * <span style="font-family:monospace">cl.isFirstRunEver()</span> added
     * gets version name from manifest now
 $ 2.0
   % Version 2.0
