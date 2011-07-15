@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello">Change Log Test App</string>
+    <string name="app_name">ChangeLog</string>
+
+    <string name="changelog_full_title">&Auml;nderungshistorie</string>
+    <string name="changelog_title">letzte &Auml;nderungen</string>
+    <string name="changelog_ok_button">OK</string>
+</resources>
