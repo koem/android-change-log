@@ -22,24 +22,24 @@
 $ 2.0.8
   % Version 2.0.8 (Kirk)
   _ 2011-07-12
-    * <span style="font-family:monospace">cl.isFirstRunEver()</span> added
-    * getting version name from manifest now
+    * <span style="font-family:monospace">cl.isFirstRunEver()</span> hinzugef&uuml;gt
+    * Versionsname wird jetzt aus Manifest geholt
 $ 2.0
   % Version 2.0
   _ 2011-06-19
-  ! completely overdone and cooler than ever!
-    # <a href="http://www.friendface.co.uk/">Friendface</a> integration
-    # now with Change Log
-    # Billions of bug fixes!
+  ! Komplett &uuml;berarbeitete Version und cooler denn je!
+    # <a href="http://www.friendface.co.uk/">Friendface</a>-Integration
+    # Jetzt mit Change Log
+    # Milliarden Fehlerfixes!
 $ 1.0
   % Version 1.0
   _ 2011-06-01
-  ! Finally! <b>Rocking Chair Sound Generator</b> released!
-    * please register
-    * please donate
+  ! <b>Schaukelstuhl-Tongenerator</b> endlich ver&ouml;ffentlicht!
+    * bitte registrieren
+    * bitte spenden
 $ 0.1
   % Version 0.1
-  _ (beta, not working)
+  _ (beta, kaputt)
 $ END_OF_CHANGE_LOG
   </body>
 </html>
