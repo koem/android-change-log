@@ -17,10 +17,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" 
                     android:text="overwrite last version: "/>
-            <EditText android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_weight="1" android:id="@+id/editversion">
-                <requestFocus></requestFocus>
-            </EditText>
-        </LinearLayout>
+        <Spinner 
+                android:id="@+id/spinnerLastVersion"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:prompt="@string/promptLastVersion" />
+    </LinearLayout>
         <Button android:text="full change log" 
                 android:id="@+id/full_changelog"
                     android:layout_height="wrap_content" 
