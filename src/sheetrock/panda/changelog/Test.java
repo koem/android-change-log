@@ -18,7 +18,6 @@ public class Test extends Activity {
     /** Called when the activity is first created. */
     private ChangeLog cl = null;
     private Spinner spinner;
-    private static final String ITEM_NONE = "";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
