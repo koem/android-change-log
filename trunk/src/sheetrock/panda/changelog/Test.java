@@ -70,9 +70,8 @@ public class Test extends Activity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); 
         spinner.setAdapter(adapter);
 
-        adapter.add(ITEM_NONE);
-
         // read changelog.txt file
+        String version = ITEM_NONE;
         try {
             InputStream ins = this.getResources().openRawResource(
                     R.raw.changelog);
@@ -82,8 +81,9 @@ public class Test extends Activity {
             while (( line = br.readLine()) != null){
                 line = line.trim();
                 if (line.startsWith("$")) {
+                    adapter.add(version);
                     // begin of a version section
-                    adapter.add(line.substring(1).trim());
+                    version = line.substring(1).trim();
                 }
             }
             br.close();
