@@ -17,28 +17,24 @@ import java.io.InputStreamReader;
 public class Test extends Activity {
     /** Called when the activity is first created. */
     private ChangeLog cl = null;
-    private String realLastVersion;
     private Spinner spinner;
-    private static final String ITEM_NONE = "<none>";
+    private static final String ITEM_NONE = "";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
-        TextView tv = (TextView) this.findViewById(R.id.textview);
-        spinner = (Spinner) this.findViewById(R.id.spinnerLastVersion);
-
-        populatespinner();
-            
         cl = new ChangeLog(this);
         
+        TextView tv = (TextView) this.findViewById(R.id.textview);
         String s = tv.getText() + "\nlast version: '" + cl.getLastVersion()
         		+ "'\nversion in manifest: '" + cl.getThisVersion()
                 + "'\nfirst run: " + cl.firstRun()
                 + "\nfirst run ever: " + cl.firstRunEver();
 
-        this.realLastVersion = cl.getLastVersion();
+        spinner = (Spinner) this.findViewById(R.id.spinnerLastVersion);
+        populatespinner(cl.getLastVersion());
 
         tv.setText(s);
 
@@ -64,14 +60,26 @@ public class Test extends Activity {
             cl.getLogDialog().show();
     }
 
-    private void populatespinner() {
-        ArrayAdapter<CharSequence> adapter = new ArrayAdapter<CharSequence>(
+    class Version {
+        public String versionName;
+        public String display;
+        public Version(String versionName, String display) {
+            this.versionName = versionName;
+            this.display = display;
+        }
+        public String toString() {
+            return  this.display;
+        }
+    }
+
+    private void populatespinner(String lastVersion) {
+        ArrayAdapter<Version> adapter = new ArrayAdapter<Version>(
                     this, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); 
         spinner.setAdapter(adapter);
 
         // read changelog.txt file
-        String version = ITEM_NONE;
+        String n = "", d = "<none>";
         try {
             InputStream ins = this.getResources().openRawResource(
                     R.raw.changelog);
@@ -81,9 +89,16 @@ public class Test extends Activity {
             while (( line = br.readLine()) != null){
                 line = line.trim();
                 if (line.startsWith("$")) {
-                    adapter.add(version);
+                    if ("".equals(d))
+                        d = n;
+                    adapter.add(new Version (n, d));
+                    if (n.equals(lastVersion))
+                        spinner.setSelection(adapter.getCount()-1);
                     // begin of a version section
-                    version = line.substring(1).trim();
+                    n = line.substring(1).trim();
+                    d = "";
+                } else if (line.startsWith("%")) {
+                    d = line.substring(1).trim();
                 }
             }
             br.close();
@@ -93,11 +108,7 @@ public class Test extends Activity {
     }
 
     private void setLastVersion() {
-//    	String overwrittenversion = this.et.getText().toString();
-//    	if (overwrittenversion == null  ||  overwrittenversion.length() == 0)
-    		cl.setLastVersion(this.realLastVersion);
-//    	else
-//    		cl.setLastVersion(overwrittenversion);
-
+        Version v = (Version) this.spinner.getSelectedItem();
+        cl.setLastVersion(v.versionName);
     }
 }
