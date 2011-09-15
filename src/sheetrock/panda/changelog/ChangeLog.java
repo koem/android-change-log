@@ -127,7 +127,8 @@ public class ChangeLog {
         
         WebView wv = new WebView(this.context);
         wv.setBackgroundColor(0); // transparent
-        wv.loadData(this.getLog(full), "text/html", "UTF-8");
+        wv.loadDataWithBaseURL(null, this.getLog(full), "text/html", "UTF-8",
+        		null);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this.context);
         builder.setTitle(context.getResources().getString(
