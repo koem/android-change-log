@@ -19,6 +19,10 @@
     </style>
   </head>
   <body>
+$ 2.1
+  % Version 2.1 (Neelix)
+  _ 2011-09-15
+    * now works with strange symbols: 將賦予他們的傳教工作標示為
 $ 2.0.8
   % Version 2.0.8 (Kirk)
   _ 2011-07-12
