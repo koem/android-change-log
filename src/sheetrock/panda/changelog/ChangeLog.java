@@ -127,6 +127,7 @@ public class ChangeLog {
         
         WebView wv = new WebView(this.context);
         wv.setBackgroundColor(0); // transparent
+        // wv.getSettings().setDefaultTextEncodingName("utf-8");
         wv.loadDataWithBaseURL(null, this.getLog(full), "text/html", "UTF-8",
         		null);
 
