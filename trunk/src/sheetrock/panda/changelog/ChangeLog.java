@@ -1,9 +1,13 @@
 /**
  * Copyright (C) 2011, Karsten Priegnitz
  *
- * Permission to use, copy, modify, and distribute this software for any
- * purpose with or without fee is hereby granted, provided that the above
- * copyright notice and this permission notice appear in all copies.
+ * Permission to use, copy, modify, and distribute this piece of software
+ * for any purpose with or without fee is hereby granted, provided that
+ * the above copyright notice and this permission notice appear in the
+ * source code of all copies.
+ *
+ * It would be appreciated if you mention the author in your change log,
+ * contributors list or the like.
  *
  * @author: Karsten Priegnitz
  * @see: http://code.google.com/p/android-change-log/
@@ -66,21 +70,13 @@ public class ChangeLog {
     /**
      * @return  The version name of the last installation of this app (as
      *          described in the former manifest). This will be the same as
-     *          returned by <code>getThisVersion()</code> from the second time
+     *          returned by <code>getThisVersion()</code> the second time
      *          this version of the app is launched (more precisely: the
      *          second time ChangeLog is instantiated).
      * @see AndroidManifest.xml#android:versionName
      */
     public String getLastVersion() {
     	return  this.lastVersion;
-    }
-
-    /**
-     * manually set the last version name - for testing purposes only
-     * @param lastVersion
-     */
-    void setLastVersion(String lastVersion) {
-    	this.lastVersion = lastVersion;
     }
     
     /**
@@ -260,4 +256,12 @@ public class ChangeLog {
     }
 
     private static final String TAG = "ChangeLog";
+
+    /**
+     * manually set the last version name - for testing purposes only
+     * @param lastVersion
+     */
+    void setLastVersion(String lastVersion) {
+    	this.lastVersion = lastVersion;
+    }
 }
