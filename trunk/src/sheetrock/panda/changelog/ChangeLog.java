@@ -41,12 +41,24 @@ public class ChangeLog {
      *
      * Retrieves the version names and stores the new version name in
      * SharedPreferences
+     * 
+     * @param context
      */
     public ChangeLog(Context context) {
+        this(context, PreferenceManager.getDefaultSharedPreferences(context));
+    }
+        
+    /**
+     * Constructor
+     *
+     * Retrieves the version names and stores the new version name in
+     * SharedPreferences
+     * 
+     * @param context
+     * @param sp  the shared preferences to store the last version name into
+     */
+    public ChangeLog(Context context, SharedPreferences sp) {
         this.context = context;
-
-        SharedPreferences sp = PreferenceManager
-        		.getDefaultSharedPreferences(context);
 
         // get version numbers
         this.lastVersion = sp.getString(VERSION_KEY, "");
@@ -120,19 +132,16 @@ public class ChangeLog {
     }
     
     private AlertDialog getDialog(boolean full) {
-        
         WebView wv = new WebView(this.context);
         wv.setBackgroundColor(0); // transparent
         // wv.getSettings().setDefaultTextEncodingName("utf-8");
-        wv.loadDataWithBaseURL(null, this.getLog(full), "text/html", "UTF-8",
-        		null);
+        wv.loadDataWithBaseURL(null, this.getLog(full), "text/html", "UTF-8", null);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this.context);
-        builder.setTitle(context.getResources().getString(
-                full 
-                    ? R.string.changelog_full_title
-                    : R.string.changelog_title))
-                .setView(wv)
+        builder.setTitle(context.getResources().getString(full 
+		            ? R.string.changelog_full_title
+		            : R.string.changelog_title))
+            	.setView(wv)
                 .setCancelable(false)
                 .setPositiveButton(
                         context.getResources().getString(
@@ -174,52 +183,54 @@ public class ChangeLog {
         // read changelog.txt file
     	sb = new StringBuffer();
     	try {
-            InputStream ins = context.getResources().openRawResource(
-                    R.raw.changelog);
+            InputStream ins = context.getResources().openRawResource(R.raw.changelog);
             BufferedReader br = new BufferedReader(new InputStreamReader(ins));
 
             String line = null;
-            boolean advanceToEOVS = false; // true = ignore further version sections
-            while (( line = br.readLine()) != null){
+            boolean advanceToEOVS = false; // if true: ignore further version sections
+            while ((line = br.readLine()) != null) {
                 line = line.trim();
-                if (line.startsWith("$")) {
+                char marker = line.length() > 0 ? line.charAt(0) : 0;
+                if (marker == '$') {
                     // begin of a version section
                     this.closeList();
                     String version = line.substring(1).trim();
                     // stop output?
                     if (! full) {
-                        if (this.lastVersion.equals(version))
+                        if (this.lastVersion.equals(version)) {
                             advanceToEOVS = true;
-                        else if (version.equals(EOCL))
+                        } else if (version.equals(EOCL)) {
                             advanceToEOVS = false;
+                        }
                      }
                 } else if (! advanceToEOVS) {
-                    if (line.startsWith("%")) {
-                        // line contains version title
+                	switch (marker) {
+                	case '%': 
+                		// line contains version title
+                		this.closeList();
+                		sb.append("<div class='title'>"  + line.substring(1).trim() + "</div>\n");
+                		break;
+                	case '_':
+                		// line contains version title
                         this.closeList();
-                        sb.append("<div class='title'>" 
-                                + line.substring(1).trim() + "</div>\n");
-                    } else if (line.startsWith("_")) {
-                        // line contains version title
-                        this.closeList();
-                        sb.append("<div class='subtitle'>" 
-                                + line.substring(1).trim() + "</div>\n");
-                    } else if (line.startsWith("!")) {
+                        sb.append("<div class='subtitle'>" + line.substring(1).trim() + "</div>\n");
+                        break;
+                	case '!':
                         // line contains free text
                         this.closeList();
-                        sb.append("<div class='freetext'>" 
-                                + line.substring(1).trim() + "</div>\n");
-                    } else if (line.startsWith("#")) {
+                        sb.append("<div class='freetext'>" + line.substring(1).trim() + "</div>\n");
+                        break;
+                	case '#':
                         // line contains numbered list item
                         this.openList(Listmode.ORDERED);
-                        sb.append("<li>" 
-                                + line.substring(1).trim() + "</li>\n");
-                    } else if (line.startsWith("*")) {
+                        sb.append("<li>" + line.substring(1).trim() + "</li>\n");
+                        break;
+                	case '*':
                         // line contains bullet list item
                         this.openList(Listmode.UNORDERED);
-                        sb.append("<li>" 
-                                + line.substring(1).trim() + "</li>\n");
-                    } else {
+                        sb.append("<li>" + line.substring(1).trim() + "</li>\n");
+                        break;
+                	default:
                         // no special character: just use line as is
                         this.closeList();
                         sb.append(line + "\n");
