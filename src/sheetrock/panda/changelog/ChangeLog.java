@@ -151,6 +151,17 @@ public class ChangeLog {
                         dialog.cancel();
                     }
                 });
+
+        if (!full) {
+            builder.setNegativeButton(R.string.changelog_show_full,
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                            getFullLogDialog().show();
+                    }
+            });
+        }
+
         return  builder.create();   
     }
     
