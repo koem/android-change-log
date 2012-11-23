@@ -157,7 +157,6 @@ public class ChangeLog {
 			builder.setNegativeButton(R.string.changelog_show_full,
 					new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int id) {
-							// updateVersionInPreferences();
 							getFullLogDialog().show();
 						}
 					});
