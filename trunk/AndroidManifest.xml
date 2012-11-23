@@ -3,16 +3,15 @@
       package="sheetrock.panda.changelog"
       android:versionCode="4"
       android:versionName="2.1.1">
+    <uses-sdk android:minSdkVersion="3" />
     <application android:icon="@drawable/icon" android:label="@string/app_name">
         <activity android:name=".Test"
-                  android:label="@string/app_name">
+                  android:label="@string/app_name"
+                  android:configChanges="orientation|keyboardHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
     </application>
-    <uses-sdk android:minSdkVersion="3" />
-
 </manifest> 
