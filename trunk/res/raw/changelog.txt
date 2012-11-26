@@ -19,6 +19,11 @@
     </style>
   </head>
   <body>
+$ 2.2
+  % Version 2.2 (The Doctor)
+  _ 2012-11-26
+    * screen rotation in demo app doesn't close dialog anymore
+    * moved writing of the version to the shared preferences to clicking the OK-button
 $ 2.1.1
   % Version 2.1.1 (Neelix)
   _ 2011-09-15
