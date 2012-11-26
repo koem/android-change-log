@@ -19,6 +19,11 @@
     </style>
   </head>
   <body>
+$ 2.2
+  % Version 2.2 (The Doctor)
+  _ 2012-11-26
+    * drehen des Phones schließt den Dialog in der Demo App nicht mehr
+    * schreiben der Version in die Shared Preferences jetzt bei klick auf OK-button
 $ 2.1.1
   % Version 2.1.1 (Neelix)
   _ 2011-09-15
