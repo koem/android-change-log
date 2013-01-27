@@ -19,19 +19,26 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.os.Build;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.View;
 import android.webkit.WebView;
 
 public class ChangeLog {
 
 	private final Context context;
 	private String lastVersion, thisVersion;
+	
+	// this is API Level 3 code
+	// if you use higher APIs anyway, you can use the field SDK_INT instead
+	private final static int API_LEVEL = Integer.parseInt(Build.VERSION.SDK);
 
 	// this is the key for storing the version name in SharedPreferences
 	private static final String VERSION_KEY = "PREFS_VERSION_KEY";
@@ -133,8 +140,10 @@ public class ChangeLog {
 
 	private AlertDialog getDialog(boolean full) {
 		WebView wv = new WebView(this.context);
+
+		if(API_LEVEL >= Build.VERSION_CODES.HONEYCOMB)
+			Compatibility.setViewLayerTypeSoftware(wv);
 		wv.setBackgroundColor(0); // transparent
-		// wv.getSettings().setDefaultTextEncodingName("utf-8");
 		wv.loadDataWithBaseURL(null, this.getLog(full), "text/html", "UTF-8",
 				null);
 
@@ -310,5 +319,24 @@ public class ChangeLog {
 	 */
 	void setLastVersion(String lastVersion) {
 		this.lastVersion = lastVersion;
+	}
+	
+	/**
+	 * Methods introduced in API-Levels > 3
+	 */
+	@SuppressLint("NewApi")
+	static class Compatibility {
+		/**
+		 * due to an error in android itself, do this to
+		 * prevent the background to be transparant and
+		 * therefore white
+		 * 
+		 * API Level 11
+		 * 
+		 * @see http://code.google.com/p/android-change-log/issues/detail?id=17
+		 */
+		static void setViewLayerTypeSoftware(View v) {
+			v.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+		}
 	}
 }
