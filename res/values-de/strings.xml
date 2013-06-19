@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="hello">Android Change Log Test App</string>
     <string name="app_name">Android Change Log</string>
 
     <string name="changelog_full_title">Änderungshistorie</string>
     <string name="changelog_title">letzte Änderungen</string>
     <string name="changelog_ok_button">OK</string>
-    <string name="changelog_show_full">mehr...</string>
-    
+    <string name="changelog_show_full">mehr …</string>
 </resources>
