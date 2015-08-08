@@ -21,6 +21,10 @@
     </style>
   </head>
   <body>
+$ 2.3
+  % Version 2.3
+  _ 2015-08-08
+    * configurable background color (string: background_color)
 $ 2.2.2
   % Version 2.2.2
   _ 2013-06-19

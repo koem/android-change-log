@@ -8,4 +8,6 @@
     <string name="changelog_show_full">more …</string>
 
     <string name="promptLastVersion">choose last version</string>
+    
+    <string name="background_color">black</string>
 </resources>

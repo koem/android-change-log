@@ -43,8 +43,7 @@ public class ChangeLog {
     /**
      * Constructor
      *
-     * Retrieves the version names and stores the new version name in
-     * SharedPreferences
+     * Retrieves the version names and stores the new version name in SharedPreferences
      *
      * @param context
      */
@@ -55,8 +54,7 @@ public class ChangeLog {
     /**
      * Constructor
      *
-     * Retrieves the version names and stores the new version name in
-     * SharedPreferences
+     * Retrieves the version names and stores the new version name in SharedPreferences
      *
      * @param context
      * @param sp
@@ -69,8 +67,8 @@ public class ChangeLog {
         this.lastVersion = sp.getString(VERSION_KEY, NO_VERSION);
         Log.d(TAG, "lastVersion: " + lastVersion);
         try {
-            this.thisVersion = context.getPackageManager().getPackageInfo(
-                    context.getPackageName(), 0).versionName;
+            this.thisVersion = context.getPackageManager().getPackageInfo(context.getPackageName(),
+                    0).versionName;
         } catch (NameNotFoundException e) {
             this.thisVersion = NO_VERSION;
             Log.e(TAG, "could not get version name from manifest!");
@@ -80,10 +78,9 @@ public class ChangeLog {
     }
 
     /**
-     * @return The version name of the last installation of this app (as
-     *         described in the former manifest). This will be the same as
-     *         returned by <code>getThisVersion()</code> the second time this
-     *         version of the app is launched (more precisely: the second time
+     * @return The version name of the last installation of this app (as described in the former
+     *         manifest). This will be the same as returned by <code>getThisVersion()</code> the
+     *         second time this version of the app is launched (more precisely: the second time
      *         ChangeLog is instantiated).
      * @see AndroidManifest.xml#android:versionName
      */
@@ -100,27 +97,24 @@ public class ChangeLog {
     }
 
     /**
-     * @return <code>true</code> if this version of your app is started the
-     *         first time
+     * @return <code>true</code> if this version of your app is started the first time
      */
     public boolean firstRun() {
         return !this.lastVersion.equals(this.thisVersion);
     }
 
     /**
-     * @return <code>true</code> if your app including ChangeLog is started the
-     *         first time ever. Also <code>true</code> if your app was
-     *         deinstalled and installed again.
+     * @return <code>true</code> if your app including ChangeLog is started the first time ever.
+     *         Also <code>true</code> if your app was deinstalled and installed again.
      */
     public boolean firstRunEver() {
         return NO_VERSION.equals(this.lastVersion);
     }
 
     /**
-     * @return An AlertDialog displaying the changes since the previous
-     *         installed version of your app (what's new). But when this is the
-     *         first run of your app including ChangeLog then the full log
-     *         dialog is show.
+     * @return An AlertDialog displaying the changes since the previous installed version of your
+     *         app (what's new). But when this is the first run of your app including ChangeLog then
+     *         the full log dialog is show.
      */
     public AlertDialog getLogDialog() {
         return this.getDialog(this.firstRunEver());
@@ -133,29 +127,24 @@ public class ChangeLog {
         return this.getDialog(true);
     }
 
-    private AlertDialog getDialog(boolean full) {
+    protected AlertDialog getDialog(boolean full) {
         WebView wv = new WebView(this.context);
 
-        wv.setBackgroundColor(Color.BLACK);
-        wv.loadDataWithBaseURL(null, this.getLog(full), "text/html", "UTF-8",
-                null);
+        wv.setBackgroundColor(Color.parseColor(context.getResources().getString(
+                R.string.background_color)));
+        wv.loadDataWithBaseURL(null, this.getLog(full), "text/html", "UTF-8", null);
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(
-                new ContextThemeWrapper(
-                        this.context, android.R.style.Theme_Dialog));
+        AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(this.context,
+                android.R.style.Theme_Dialog));
         builder.setTitle(
                 context.getResources().getString(
-                        full ? R.string.changelog_full_title
-                                : R.string.changelog_title))
+                        full ? R.string.changelog_full_title : R.string.changelog_title))
                 .setView(wv)
                 .setCancelable(false)
                 // OK button
-                .setPositiveButton(
-                        context.getResources().getString(
-                                R.string.changelog_ok_button),
+                .setPositiveButton(context.getResources().getString(R.string.changelog_ok_button),
                         new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog,
-                                    int which) {
+                            public void onClick(DialogInterface dialog, int which) {
                                 updateVersionInPreferences();
                             }
                         });
@@ -173,10 +162,9 @@ public class ChangeLog {
         return builder.create();
     }
 
-    private void updateVersionInPreferences() {
+    protected void updateVersionInPreferences() {
         // save new version number to preferences
-        SharedPreferences sp = PreferenceManager
-                .getDefaultSharedPreferences(context);
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = sp.edit();
         editor.putString(VERSION_KEY, thisVersion);
         // // on SDK-Versions > 9 you should use this:
@@ -189,8 +177,8 @@ public class ChangeLog {
     }
 
     /**
-     * @return HTML displaying the changes since the previous installed version
-     *         of your app (what's new)
+     * @return HTML displaying the changes since the previous installed version of your app (what's
+     *         new)
      */
     public String getLog() {
         return this.getLog(false);
@@ -212,17 +200,16 @@ public class ChangeLog {
     private StringBuffer sb = null;
     private static final String EOCL = "END_OF_CHANGE_LOG";
 
-    private String getLog(boolean full) {
+    protected String getLog(boolean full) {
         // read changelog.txt file
         sb = new StringBuffer();
         try {
-            InputStream ins = context.getResources().openRawResource(
-                    R.raw.changelog);
+            InputStream ins = context.getResources().openRawResource(R.raw.changelog);
             BufferedReader br = new BufferedReader(new InputStreamReader(ins));
 
             String line = null;
             boolean advanceToEOVS = false; // if true: ignore further version
-                                            // sections
+                                           // sections
             while ((line = br.readLine()) != null) {
                 line = line.trim();
                 char marker = line.length() > 0 ? line.charAt(0) : 0;
@@ -243,20 +230,17 @@ public class ChangeLog {
                     case '%':
                         // line contains version title
                         this.closeList();
-                        sb.append("<div class='title'>"
-                                + line.substring(1).trim() + "</div>\n");
+                        sb.append("<div class='title'>" + line.substring(1).trim() + "</div>\n");
                         break;
                     case '_':
                         // line contains version title
                         this.closeList();
-                        sb.append("<div class='subtitle'>"
-                                + line.substring(1).trim() + "</div>\n");
+                        sb.append("<div class='subtitle'>" + line.substring(1).trim() + "</div>\n");
                         break;
                     case '!':
                         // line contains free text
                         this.closeList();
-                        sb.append("<div class='freetext'>"
-                                + line.substring(1).trim() + "</div>\n");
+                        sb.append("<div class='freetext'>" + line.substring(1).trim() + "</div>\n");
                         break;
                     case '#':
                         // line contains numbered list item
@@ -284,7 +268,7 @@ public class ChangeLog {
         return sb.toString();
     }
 
-    private void openList(Listmode listMode) {
+    protected void openList(Listmode listMode) {
         if (this.listMode != listMode) {
             closeList();
             if (listMode == Listmode.ORDERED) {
@@ -296,7 +280,7 @@ public class ChangeLog {
         }
     }
 
-    private void closeList() {
+    protected void closeList() {
         if (this.listMode == Listmode.ORDERED) {
             sb.append("</ol></div>\n");
         } else if (this.listMode == Listmode.UNORDERED) {
