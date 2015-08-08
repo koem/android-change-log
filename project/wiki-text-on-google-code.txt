@@ -1,0 +1,217 @@
+<table><tr><td>
+=Android Change Log=
+
+----
+
+<wiki:gadget url="https://gcodeadsense.googlecode.com/svn/release/gCodeAdSense/gCodeAdSense.xml" border="0" width="728" height="15" up_ad_client="6957634847281469" up_ad_slot="8380964634" up_ad_width="728" up_ad_height="15" />
+
+----
+
+=_Since Google Code is closing down in 2016 this project is now hosted here: [http://petoria.de/android-change-log/ Android Change Log]._=
+
+
+----
+
+With *Android Change Log* you can easily create, show and maintain an Android changelog dialog to present the recent changes / release notes of your Android App on the user's Android device (tablet / smartphone / whatever).
+
+Features are:
+  * It's *open source*, *no license* attached, and *free of charge!*
+  * display only what's new or show the whole change log
+  * display on first start of newly installed app or on new app version
+  * write the change log in a simplified language but also use HTML and CSS if needed
+  * Android SDK 1.5 and higher
+
+Test it! [http://code.google.com/p/android-change-log/downloads/list Download the Test App here!] - it's free and it's open source!
+
+----
+
+<wiki:gadget url="https://gcodeadsense.googlecode.com/svn/release/gCodeAdSense/gCodeAdSense.xml" border="0" width="728" height="90" up_ad_client="6957634847281469" up_ad_slot="9150575031" up_ad_width="728" up_ad_height="90" />
+
+----
+
+There are several projects using this code:
+  * [https://play.google.com/store/apps/details?id=at.zweng.bankomatinfos Bankomat Card Infos]
+  * [https://play.google.com/store/apps/details?id=com.nebelcode.synchrolab Synchrolab]
+  * [http://code.google.com/p/smsoip/ SMSoiP]
+  * [http://androidsu.com/ AndroidSU]
+  * [https://play.google.com/store/apps/details?id=org.cyclopath.android Cyclopath]
+  * [http://forum.xda-developers.com/showthread.php?t=1034679 Bootanimation Utility]
+  * [https://play.google.com/store/apps/details?id=com.visualdesign.livefootballontv Live Football On TV]
+  * and more...
+
+And there even is a [https://github.com/cketti/ckChangeLog spin-off] under an Apache-License.
+
+----
+
+==Setting up your Change Log==
+
+===Get code===
+
+Copy the class [https://code.google.com/p/android-change-log/source/browse/trunk/src/sheetrock/panda/changelog/ChangeLog.java ChangeLog.java] into your project ([https://android-change-log.googlecode.com/svn/trunk/src/sheetrock/panda/changelog/ChangeLog.java raw file here]). 
+
+`ChangeLog.java` is distributed with a simple license. This basically allows you to do whatever you want with it in open, closed, noncommercial and commercial projects as long as you leave the copyright and permission notice intact in your source code.
+
+===Maintain versionName in !AndroidManifest.xml===
+
+{{{
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+      package="sheetrock.panda.changelog"
+          :        :        :
+      android:versionName="2.0.7">
+}}}
+
+  * `versionName`: This is the current version name of your app. This does not have to be a number but normally it is. Examples: "2.0.7", "0.1-beta", "1.1.0.14", "Jean-Luc Version"
+
+===Add strings===
+
+Add these string constants to your `res/values/strings.xml`:
+
+{{{
+    <string name="changelog_full_title">Change Log</string>
+    <string name="changelog_title">What\'s New</string>
+    <string name="changelog_ok_button">OK</string>
+    <string name="changelog_show_full">more...</string>
+}}}
+
+  * `changelog_full_title`: This is the title for an *Android Change Log* dialog that displays the whole change log.
+  * `changelog_title`: This is the title for an *Android Change Log* dialog that only displays the things having changed since the last installed version.
+  * `changelog_ok_button`: This is the text on the button to dismiss the *Android Change Log* dialog.
+  * `changelog_show_full`: This text is shown on the button to display the full change log in the show-only-what's-new-mode.
+===Write log===
+
+Add a file `res/raw/changelog.txt` to your project and fill it with your change log.
+
+<table border="0" cellpadding="0" cellspacing="0">
+<tr><td><b>Example code:</b></td><td width="20"></td><td><b>Result:</b></td></tr>
+<tr><td>
+{{{
+<html>
+  <head>
+    <style type='text/css'>
+      a            { color:#a0a0e0 }
+      div.title    { 
+          color:#C0F0C0; 
+          font-size:1.2em; 
+          font-weight:bold; 
+          margin-top:1em; 
+          margin-bottom:0.5em; 
+          text-align:center }
+      div.subtitle { 
+          color:#C0F0C0; 
+          font-size:0.8em; 
+          margin-bottom:1em; 
+          text-align:center }
+      div.freetext { color:#F0F0F0 }
+      div.list     { color:#C0C0F0 }
+    </style>
+  </head>
+  <body>
+$ 2.1.1
+  % Version 2.1.1 (Neelix)
+  _ 2011-09-15
+    * now works with strange symbols: ÆæØøÅå Smørebrød
+    * and even stranger symbols, too: 將賦予他們的傳教工作標示為
+$ 2.0.8
+  % Version 2.0.8 (Kirk)
+  _ 2011-07-12
+    * <span style="font-family:monospace">cl.isFirstRunEver()</span> added
+    * getting version name from manifest now
+$ 2.0
+  % Version 2.0
+  _ 2011-06-19
+  ! completely overdone and cooler than ever!
+    # <a href="http://www.friendface.co.uk/">Friendface</a> integration
+    # now with Change Log
+    # Billions of bug fixes!
+$ 1.0
+  % Version 1.0
+  _ 2011-06-01
+  ! Finally! <b>Rocking Chair Sound Generator</b> released!
+    * please register
+    * please donate
+$ 0.1
+  % Version 0.1
+  _ (beta, not working)
+$ END_OF_CHANGE_LOG
+  </body>
+</html>
+}}}
+</td><td>{{{ }}}</td><td valign="top">
+<br/>
+http://android-change-log.googlecode.com/svn/trunk/doc/shot1.jpg
+</td></tr></table>
+
+----
+
+Abstract explanation:
+  * First input HTML as if writing a web page until the body-Tag. Here you can enter CSS for div.title, div.subtitle, div.freetext and div.list (see below) and any other elements you may be using, e.g. links.
+  * To begin a section for any version start the line with a $ sign followed by the version. This line *will not be displayed* in the dialog but it is important for *Android Change Log* for knowing what to display and what not. It corresponds to the `versionName` in the `AndroidManifest.xml`.
+  * % begins a line of a version section title.
+  * {{{_}}} begins a line of a version section subtitle.
+  * ! begins a line of free text.
+  * # begins a line within a numbered list.
+  * {{{*}}} begins a line within a bullet list.
+  * Lines beginning without any of these signs (for example the HTML at the beginning of `changelog.txt`) will be used as they are.
+  * You can use HTML anywhere you want.
+  * Insert a line containing "$ END_OF_CHANGE_LOG" after the last version section.
+  * After that you should enter HTML again, at least the end-body-tag and the end-html-tag.
+  * You can indent lines, but you don't have to.
+  * You don't need to use these special symbols, you can write your log completely in HTML. Only the lines beginning with $-signs are mandatory if you want to be able to only display what's new instead of a full change log.
+
+*It would be nice if you included a line like this in your change log:*
+
+  * Now with `<a href="http://code.google.com/p/android-change-log/">`Android Change Log`</a>`!
+
+===Integrate===
+
+Put this in your Activity to display what's new since the last installed version of your app on that particular device:
+
+{{{
+    ChangeLog cl = new ChangeLog(this);
+    if (cl.firstRun())
+        cl.getLogDialog().show();
+}}}
+
+After the OK-Button in the change log dialog is pressed, the new version number is written to the `SharedPrefences`. This means that the next instantiation of this class will return `false` when calling `firstRun()` and `getLogDialog()` would deliver an empty change log dialog.
+
+Use this to display the full change log, e.g. when a menu entry named "change log" was chosen:
+
+{{{
+    cl.getFullLogDialog().show();
+}}}
+
+If you want to build your own dialog, you can retrieve the HTML by calling `getLog()` or `getFullLog()`.
+
+===Localization===
+
+You can provide change logs in different languages. For example use `res/raw-de/changelog.txt` and `res/values-de/strings.xml` to provide German logs and labels.
+
+===Stay up-to-date===
+
+Register for code changes or other page updates [http://code.google.com/p/android-change-log/feeds here].
+
+===Troubleshooting===
+  * When you want to display a percentage sign in the change log, please use %25 instead of only %. This is due to limitations in the use of a `WebView` in the dialog.
+  * Check [http://code.google.com/p/android-change-log/issues/detail?id=6 issue 6] when having problems with special or language specific characters. Basically it is a Windows vs Android problem. You can try to change the file encoding in Eclipse to UTF-8 or use the windows notepad and use "save as ..." to change the encoding.
+  * To test the "What's new" Dialog you can use the method `dontuseSetLastVersion()` to set the Version by hand. Don't forget to kick this call out of your code before you build a release!!
+  * Feel free to use the [http://code.google.com/p/android-change-log/issues/list Issues tab] on this page to report any defects.
+
+----
+
+==to do - what's next to come==
+
+  * Check the [http://code.google.com/p/android-change-log/issues/list Issues tab] for accepted enhancements
+  * If you made enhancements yourself, please provide any information - to share with other users.
+
+----
+
+<wiki:gadget url="https://gcodeadsense.googlecode.com/svn/release/gCodeAdSense/gCodeAdSense.xml" border="0" width="728" height="90" up_ad_client="6957634847281469" up_ad_slot="5568849836" up_ad_width="728" up_ad_height="90" />
+
+</td>
+<td valign="top">
+<wiki:gadget url="https://gcodeadsense.googlecode.com/svn/release/gCodeAdSense/gCodeAdSense.xml" border="0" width="300" height="600" up_ad_client="6957634847281469" up_ad_slot="4529187834" up_ad_width="300" up_ad_height="600" />
+<br />
+<br />
+<wiki:gadget url="https://gcodeadsense.googlecode.com/svn/release/gCodeAdSense/gCodeAdSense.xml" border="0" width="200" height="90" up_ad_client="6957634847281469" up_ad_slot="2853978239" up_ad_width="200" up_ad_height="90" />
+
+</td></tr></table>
