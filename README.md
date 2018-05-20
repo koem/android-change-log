@@ -65,7 +65,7 @@ Add these string constants to your res/values/strings.xml:
 * `changelog_title`: This is the title for an **Android Change Log** dialog that only displays the things having changed since the last installed version.
 * `changelog_ok_button`: This is the text on the button to dismiss the **Android Change Log** dialog.
 * `changelog_show_full`: This text is shown on the button to display the full change log in the show-only-what’s-new-mode.
-* `background_color`: The background color of the dialog. You can use color names as defined [here](http://developer.android.com/reference/android/graphics/Color.html#parseColor%28java.lang.String%29] or hex codes like `#002060`.
+* `background_color`: The background color of the dialog. You can use color names as defined [here](http://developer.android.com/reference/android/graphics/Color.html#parseColor%28java.lang.String%29) or hex codes like `#002060`.
 
 ## Write log
 
@@ -135,20 +135,21 @@ Abstract explanation:
 
 * First input HTML as if writing a web page until the body-Tag. Here you can enter CSS for *div.title*, *div.subtitle*, *div.freetext* and *div.list* (see below) and any other elements you may be using, e.g. links.
 * To begin a section for any version start the line with a $ sign followed by the version. **This line will not be displayed** in the dialog but it is important for **Android Change Log** for knowing what to display and what not. It corresponds to the *versionName* in the *AndroidManifest.xml*.
-* % starts a line of a version section title.
-* _ starts a line of a version section subtitle.
-* ! starts a line of free text.
-* # starts a line within a numbered list.
-* * starts a line within a bullet list.
+* `%` starts a line of a version section title.
+* `_` starts a line of a version section subtitle.
+* `!` starts a line of free text.
+* `#` starts a line within a numbered list.
+* `*` starts a line within a bullet list.
 * Lines starting without any of these signs (for example the HTML at the beginning of changelog.txt) will be used as they are.
 * You can use HTML anywhere you want.
 * Insert a line containing `$ END_OF_CHANGE_LOG` after the last version section.
 * After that you should enter HTML again, at least the end-body-tag and the end-html-tag.
 * You can indent lines, but you don’t have to.
-* You don’t need to use these special symbols, you can write your log completely in HTML. Only the lines beginning with $-signs are mandatory if you want to be able to only display what’s new instead of a full change log.
+* You don’t need to use these special symbols, you can write your log completely in HTML. Only the lines beginning with `$`-signs are mandatory if you want to be able to only display what’s new instead of a full change log.
 
 **It would be nice if you included a line like this in your change log:**
 
-```* Now with <a href="https://github.com/koem/android-change-log/">Android Change Log</a>!
+```
+* Now with <a href="https://github.com/koem/android-change-log/">Android Change Log</a>!
 ```
 
