@@ -1,6 +1,7 @@
 # Overview
 
 ![changelog example](https://raw.githubusercontent.com/koem/android-change-log/master/project/shot2.jpg)
+
 changelog example
 
 Using **Android Change Log** you can easily create, show and maintain an Android changelog dialog to display the recent changes / release notes of your Android App on the user’s Android device (tablet / smartphone / whatever).
@@ -134,7 +135,7 @@ To get a result like this …
 Abstract explanation:
 
 * First input HTML as if writing a web page until the body-Tag. Here you can enter CSS for *div.title*, *div.subtitle*, *div.freetext* and *div.list* (see below) and any other elements you may be using, e.g. links.
-* To begin a section for any version start the line with a $ sign followed by the version. **This line will not be displayed** in the dialog but it is important for **Android Change Log** for knowing what to display and what not. It corresponds to the *versionName* in the *AndroidManifest.xml*.
+* To begin a section for any version start the line with a `$` sign followed by the version. **This line will not be displayed** in the dialog but it is important for **Android Change Log** for knowing what to display and what not. It corresponds to the *versionName* in the *AndroidManifest.xml*.
 * `%` starts a line of a version section title.
 * `_` starts a line of a version section subtitle.
 * `!` starts a line of free text.
@@ -145,7 +146,7 @@ Abstract explanation:
 * Insert a line containing `$ END_OF_CHANGE_LOG` after the last version section.
 * After that you should enter HTML again, at least the end-body-tag and the end-html-tag.
 * You can indent lines, but you don’t have to.
-* You don’t need to use these special symbols, you can write your log completely in HTML. Only the lines beginning with `$`-signs are mandatory if you want to be able to only display what’s new instead of a full change log.
+* You don’t need to use these special symbols, you can write your log completely in HTML. Only the lines beginning with `$` signs are mandatory if you want to be able to only display what’s new instead of a full change log.
 
 **It would be nice if you included a line like this in your change log:**
 
@@ -153,3 +154,40 @@ Abstract explanation:
 * Now with <a href="https://github.com/koem/android-change-log/">Android Change Log</a>!
 ```
 
+## Integrate
+
+Put this in your Activity to display what’s new since the last installed version of your app on that particular device:
+
+`MainActivity.java`:
+
+```  ChangeLog cl = new ChangeLog(this);
+  if (cl.firstRun())
+    cl.getLogDialog().show();
+```
+
+After the OK-Button in the change log dialog is pressed, the new version number is written to the `SharedPrefences`. This means that the next instantiation of this class will return false when calling `firstRun()` and `getLogDialog()` would show an empty change log dialog.
+
+Use this to display the full change log, e.g. when a menu entry named "change log" was chosen:
+
+`AboutActivity.java`:
+
+```  cl.getFullLogDialog().show();
+```
+
+If you want to build your own dialog, you can retrieve the HTML by calling `getLog()` or `getFullLog()`.
+
+## Localization
+
+You can provide change logs in different languages. For example use `res/raw-de/changelog.txt` and `res/values-de/strings.xml` to provide German logs and labels.
+
+## Troubleshooting
+
+* If you want to display a percentage sign in the change log, please use `%25` instead of only `%`. This is due to limitations in the use of a WebView in the dialog.
+* Check [issue 6](https://github.com/koem/android-change-log/issues/6#issuecomment-90355014) when having problems with special or language specific characters. Basically it is a Windows vs Android problem. You can try to change the file encoding in Eclipse to UTF-8 or use the windows notepad and use "save as …" to change the encoding.
+* To test the “What’s new” Dialog you can use the method dontuseSetLastVersion() to set the Version by hand. Don’t forget to kick this call out of your code before you build a release!!
+* Feel free to use the [Issues site](https://github.com/koem/android-change-log/issues) to report any defects.
+
+# to do – what’s next to come
+
+* Check the [Issues](https://github.com/koem/android-change-log/issues) for accepted enhancements & changes
+* If you made enhancements yourself, please provide any information – to share with other users.
